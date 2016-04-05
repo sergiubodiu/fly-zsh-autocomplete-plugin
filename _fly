@@ -1,0 +1,259 @@
+#compdef fly
+# ------------------------------------------------------------------------------
+#
+# Copyright 2016 Sergiu Bodiu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# ------------------------------------------------------------------------------
+#
+# Description
+# -----------
+#
+#  Completion script for Concourse CLI (http://concourse.ci/installing.html)
+#
+# ------------------------------------------------------------------------------
+#
+# Authors
+# -------
+#
+#  * Sergiu Bodiu (https://github.com/sergiubodiu)
+#
+# ------------------------------------------------------------------------------
+
+# --------------
+# ----- Commands
+# --------------
+
+__login() {
+  _arguments \
+    '-t=[Save target (e.g. example)]:target:' \
+    '--concourse-url=[API endpoint (e.g. https://example.com)]:api endpoint:' \
+    '--insecure[Skip SSL validation]'
+}
+
+__pipelines() {
+  _arguments \
+    '-t=[Save target endpoint]:target:'
+}
+
+__rename-pipeline() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--old-name=[Old pipeline name]:my-pipeline:' \
+    '--new-name=[New pipeline name]:my-cool-pipeline:'
+}
+
+__pause-pipeline() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--pipeline=[Pipeline name]:my-pipeline:'
+}
+
+__unpause-pipeline() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--pipeline=[Pipeline name]:my-pipeline:'
+}
+
+__get-pipeline() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--pipeline=[Pipeline name]:my-pipeline:'
+    '--json=[get JSON instead of YAML]
+}
+   
+__set-pipeline() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--config=[Configuration to Concourse]:pipeline.yml:' \
+    '--pipeline=[Pipeline name]:my-pipeline:'
+}
+__destroy-pipeline() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--pipeline=[Pipeline name]:my-pipeline:'
+}
+
+__trigger-job() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--job=[Job (e.g. my-pipeline/my-job)]:my-job:' 
+}
+
+__pause-job() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--job=[Job (e.g. my-pipeline/my-job)]:my-job:' 
+}
+
+__unpause-job() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--job=[Job (e.g. my-pipeline/my-job)]:my-job:' 
+}
+
+__builds() {    
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--job=[Job (e.g. my-pipeline/my-job)]:my-job:' 
+}
+  
+__abort-build() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--job=[Job (e.g. my-pipeline/my-job)]:my-job:' \
+    '--build=[Build number]:my-build'
+}
+
+__containers() {
+  _arguments \
+    '-t=[Save target endpoint]:target:'
+}
+  
+__intercept() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--job=[Job (e.g. my-pipeline/my-job)]:my-job:' \
+    '--build=[Build number]:my-build' \
+    '--step=[Step number]:my-step' \
+    '--check=[Resource (e.g. my-pipeline/my-resource)]:my-resource'
+}
+
+__watch() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--job=[Job (e.g. my-pipeline/my-job)]:my-job:' \
+    '--build=[Build number]:my-build'
+}
+
+__workers() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' 
+}
+
+__volumes() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' 
+}
+
+__checklist() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--pipeline=[Pipeline name]:my-pipeline:'
+}
+
+__sync() {
+  _arguments \
+    '-t=[Save target endpoint]:target:'
+}
+
+__execute() {
+  _arguments \
+    '-t=[Save target endpoint]:target:' \
+    '--config=[Pipeline name]:my-pipeline:'
+}
+
+# ------------------
+# ----- end Commands
+# ------------------
+
+# -------------------
+# ----- 1st Arguments
+# -------------------
+
+local -a _1st_arguments
+_1st_arguments=(
+    "login":"Authenticating with and saving Concourse targets"
+    "pipelines":"Listing configured pipelines"
+    "sync":"Update your local copy of fly"
+    "execute":"Submitting Local Tasks"
+    "rename-pipeline":"Rename a pipeline"
+    "pause-pipeline":"Preventing new pipeline activity"
+    "unpause-pipeline":"Resuming pipeline activity"
+    "get-pipeline":"Fetching a pipeline's configuration"
+    "set-pipeline":"Configuring Pipelines"
+    "destroy-pipeline":"Removing Pipelines"
+    "trigger-job":"Triggering a new build of a job"
+    "pause-job":"Preventing new job activity"
+    "unpause-job":"Resuming job activity"
+    "builds":"Showing build history"
+    "abort-build":"Aborting a running build of a job"
+    "containers":"Listing active containers"
+    "intercept":"Accessing a running or recent build's steps"
+    "watch":"View logs of in-progress builds"
+    "workers":"Listing registered workers"
+    "volumes":"Listing active volumes"
+    "checklist":"Generate Checkman definition files"
+)
+
+# -----------------------
+# ----- end 1st Arguments
+# -----------------------
+
+# ----------
+# ----- Main
+# ----------
+
+_arguments '*:: :->command'
+
+if (( CURRENT == 1 )); then
+  _describe -t commands "fly command" _1st_arguments
+  return
+fi
+
+local -a _command_args
+case "$words[1]" in
+    login)
+      __login ;;
+    pipelines)
+      __pipelines ;;
+    sync)
+      __sync ;;
+    execute)
+      __execute ;;
+    rename-pipeline)
+      __rename-pipeline ;;
+    pause-pipeline)
+      __pause-pipeline ;;
+    unpause-pipeline)
+      __unpause-pipeline ;;
+    get-pipeline)
+      __get-pipeline ;;
+    set-pipeline)
+      __set-pipeline ;;
+    destroy-pipeline)
+      __destroy-pipeline ;;
+    trigger-job)
+      __trigger-job ;;
+    pause-job)
+      __pause-job ;;
+    unpause-job)
+      __unpause-job ;;
+    builds)
+      __builds ;;
+    abort-build)
+      __abort-build ;;
+    containers)
+      __containers ;;
+    intercept)
+      __intercept ;;
+    watch)
+      __watch ;;
+    workers)
+      __workers ;;
+    volumes)
+      __volumes ;;
+    checklist)
+      __checklist ;;
+esac
