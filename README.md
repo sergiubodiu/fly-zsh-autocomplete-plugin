@@ -5,12 +5,6 @@ This [zsh](http://www.zsh.org/) plugin adds autocompletion options for all [Conc
 ## Demo
 
 
-
-## Installation
-
-* Download the latest version of the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads)
-* Follow the instructions for your plugin framework of choice:
-
 ### Oh-My-Zsh
 
 * Clone this repo to your zsh plugins directory:
