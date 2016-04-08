@@ -70,7 +70,7 @@ __get-pipeline() {
   _arguments \
     '-t=[Save target endpoint]:target:' \
     '--pipeline=[Pipeline name]:my-pipeline:'
-    '--json=[get JSON instead of YAML]
+    '--json=[get JSON instead of YAML]'
 }
    
 __set-pipeline() {
@@ -79,6 +79,7 @@ __set-pipeline() {
     '--config=[Configuration to Concourse]:pipeline.yml:' \
     '--pipeline=[Pipeline name]:my-pipeline:'
 }
+
 __destroy-pipeline() {
   _arguments \
     '-t=[Save target endpoint]:target:' \
