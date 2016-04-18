@@ -7,10 +7,10 @@ This [zsh](http://www.zsh.org/) plugin adds autocompletion options for all [Conc
 
 ### Oh-My-Zsh
 
-* Clone this repo to your zsh plugins directory:
+* Clone this repo to your zsh custom plugins directory:
 
 ```
-$ cd ~/.oh-my-zsh/plugins
+$ cd ~/.oh-my-zsh/custom/plugins
 $ git clone https://github.com/sbodiu-pivotal/fly-zsh-autocomplete-plugin.git fly
 ```
 
